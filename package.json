@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Miroff",
+  "repository": "https://github.com/kothic/tilestrata-kothic",
   "license": "BSD-2-Clause",
   "dependencies": {
     "@mapbox/sphericalmercator": "^1.1.0",

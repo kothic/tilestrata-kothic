@@ -57,7 +57,6 @@ PsqlProvider.prototype.getTileData = function(bbox, z) {
   }
 
   const sql = this.options.generateSQL(bboxSQL, z);
-  console.log(sql);
 
   return this.pool.query(sql).then(result => {
     return transformData(result, bbox);
