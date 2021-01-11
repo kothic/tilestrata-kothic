@@ -1,18 +1,18 @@
-tilestrata-kothic is a Tilestrata plugin for rendering tiles using KothicJS
+*tilestrata-kothic* is a [Tilestrata](https://github.com/naturalatlas/tilestrata) plugin for rendering tiles using [Kothic](https://github.com/kothic/kothic-node)
 
 This plugin doesn't require any particular data source, but it was designed with
 PostgreSQL and PostGIS in mind.
 
 Please consider tilestrata-kothic as a working example rather then box product.
 
-== Usage tutorial
+## Usage tutorial
 
 Let's render something simple, e.g. contour lines over a transparent background.
 
 Required prerequisites:
-# Have PostgreSQL + PostGIS installed
-# PostgreSQL database with PostGIS and hstore extensions enabled
-# GDAL tools installed
+1. Have PostgreSQL + PostGIS installed
+2. PostgreSQL database with PostGIS and hstore extensions enabled
+3. GDAL tools installed
 
 Download SRTM contours in shape format from OpenDemData http://opendemdata.info/data/srtm_contour/N43E042.zip
 ```
@@ -41,5 +41,5 @@ Check generated contours in your browser
 http://localhost:8081/contours/14/10123/5998.png
 ```
 
-== Additional info
+## Additional info
 For information about KothicJS see: https://github.com/kothic/kothic-node
