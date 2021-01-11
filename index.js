@@ -8,15 +8,16 @@ const Kothic = require("kothic");
 const { createCanvas, loadImage } = require('canvas')
 
 const SphericalMercator = require('@mapbox/sphericalmercator');
-const PsqlProvider = require("./psql-provider");
 
 const Cache = require("./cache");
+
+const PsqlProvider = require('./psql-provider')
 
 function defautOptions(options, defaultOptions) {
   return
 }
 
-module.exports = function(options={}) {
+function renderer(provider, options={}) {
 	options = Object.assign({
 		metatile: 4,
 		tileSize: 256,
@@ -30,7 +31,7 @@ module.exports = function(options={}) {
 
 	const cache = new Cache(options.cache);
 
-  let provider, kothic;
+  let kothic;
 
 	/**
 	 * Initializes the layer config and the PostgreSQL datasource.
@@ -40,25 +41,18 @@ module.exports = function(options={}) {
 	 * @return {void}
 	 */
 	function initialize(server, callback) {
-		provider = new PsqlProvider(options.psql, function(err) {
-			if (err) {
-				return callback(err)
-			}
+    const mapcssFile = path.resolve(options.mapcssFile)
 
-			console.log("PostgreSQL data provider initialized");
-      const mapcssFile = path.resolve(options.mapcssFile)
+    if (!fs.existsSync(mapcssFile)) {
+      return callback("Cannot load MapCSS style " + options.mapcssFile)
+    }
 
-      if (!fs.existsSync(mapcssFile)) {
-        return callback("Cannot load MapCSS style " + options.mapcssFile)
-      }
+    const css = fs.readFile(mapcssFile, (err, buffer) => {
+      kothic = new Kothic(buffer.toString(), options.kothic);
 
-			const css = fs.readFile(mapcssFile, (err, buffer) => {
-				kothic = new Kothic(buffer.toString(), options.kothic);
-
-				console.log("Kothic initialized");
-				callback();
-			});
-		});
+      console.log("Kothic initialized");
+      callback();
+    });
 	}
 
   /**
@@ -181,3 +175,8 @@ module.exports = function(options={}) {
 		serve: serve
 	};
 };
+
+module.exports = {
+  renderer,
+  PsqlProvider
+}

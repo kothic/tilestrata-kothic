@@ -5,7 +5,7 @@ const path = require("path");
 const tilestrata = require('tilestrata');
 const strata = tilestrata();
 
-const tilestrataPostGISGeoJSON = require('tilestrata-kothic');
+const tilestrataKothic = require('tilestrata-kothic');
 
 const observer = new PerformanceObserver((list) => {
   list.getEntries().forEach((item) => {
@@ -20,35 +20,39 @@ const SQL_TMPL = "SELECT elevation as id,  " +
                   "FROM public.contours " +
                   "WHERE elevation % {interval} = 0 AND ST_Intersects(wkb_geometry, {bbox})";
 
+const psqlOptions = {
+  generateSQL: function(bbox, zoom) {
+    let interval;
+
+    if (zoom >= 16) {
+      interval = 10;
+    } else if (zoom >= 14) {
+      interval = 50;
+    } else if (zoom >= 12) {
+      interval = 100;
+    } else {
+      interval = 1000;
+    }
+
+    return SQL_TMPL
+      .replace(/\{bbox\}/g, bbox)
+      .replace(/\{interval\}/g, interval);
+  },
+  pgConfig: {
+    user: process.env.PG_USER || 'contours',
+    password: process.env.PG_PASSWORD || 'contours',
+    host: 'localhost',
+    port: '5432',
+    database: process.env.PG_DB || 'contours',
+    connectionTimeoutMillis: 10000
+  }
+};
+
+const provider = new tilestrataKothic.PsqlProvider(psqlOptions);
+
 strata.layer('contours', {minZoom: 12, maxZoom: 18})
   .route('*.png')
-    .use(tilestrataPostGISGeoJSON({
-      psql: {
-        generateSQL: function(bbox, zoom) {
-          let interval;
-          if (zoom >= 16) {
-            interval = 10;
-          } else if (zoom >= 14) {
-            interval = 50;
-          } else if (zoom >= 12) {
-            interval = 100;
-          } else {
-            interval = 1000;
-          }
-
-          return SQL_TMPL
-            .replace(/\{bbox\}/g, bbox)
-            .replace(/\{interval\}/g, interval);
-        },
-        pgConfig: {
-          user: process.env.PG_USER || 'contours',
-          password: process.env.PG_PASSWORD || 'contours',
-          host: 'localhost',
-          port: '5432',
-          database: process.env.PG_DB || 'contours',
-          connectionTimeoutMillis: 10000
-        }
-      },
+    .use(tilestrataKothic.renderer(provider, {
       kothic: {
         gallery: {
           //TODO: Implement icons loading

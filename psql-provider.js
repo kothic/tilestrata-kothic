@@ -10,13 +10,13 @@ const hstore = require('pg-hstore')();
  ** @param {options.generateSQL}:function
  **
  **/
-function PsqlProvider(options={}, callback) {
+function PsqlProvider(options={}) {
   this.options = Object.assign({
     buffer: 0
   }, options);
 
   if (typeof(options.generateSQL) !== 'function') {
-    return callback("options.generateSQL must be a function");
+    throw new Error("options.generateSQL must be a function");
   }
 
   this.pool = new pg.Pool(options.pgConfig);
@@ -25,8 +25,6 @@ function PsqlProvider(options={}, callback) {
     console.error('Unexpected error on idle client', err)
     process.exit(-1)
   });
-
-  callback();
 }
 
 function transformData(result, bbox) {
