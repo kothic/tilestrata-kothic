@@ -4,7 +4,7 @@
   "description": "Tilestrata plugin for rendering tiles using KothicJS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "author": "Miroff",
   "repository": "https://github.com/kothic/tilestrata-kothic",
