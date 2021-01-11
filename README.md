@@ -1,4 +1,15 @@
-*tilestrata-kothic* is a [Tilestrata](https://github.com/naturalatlas/tilestrata) plugin for rendering tiles using [Kothic](https://github.com/kothic/kothic-node)
+**tilestrata-kothic** is a [Tilestrata](https://github.com/naturalatlas/tilestrata) plugin for rendering tiles using [Kothic](https://github.com/kothic/kothic-node)
+
+[![NPM version][npm-version-image]][npm-url] [![License][license-image]][license-url]  [![Build Status][travis-image]][travis-url]
+
+[npm-url]: https://npmjs.org/package/tilestrata-kothic
+[npm-version-image]: http://img.shields.io/npm/v/tilestrata-kothic.svg?style=flat
+
+[license-image]: https://img.shields.io/npm/l/tilestrata-kothic.svg?style=flat
+[license-url]: LICENSE
+
+[travis-url]: http://travis-ci.org/kothic/tilestrata-kothic
+[travis-image]: http://img.shields.io/travis/kothic/tilestrata-kothic/master.svg?style=flat
 
 This plugin doesn't require any particular data source, but it was designed with
 PostgreSQL and PostGIS in mind.
