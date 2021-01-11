@@ -1,0 +1,29 @@
+line[ele] {
+  set ele1000 = eval(num(tag("ele")) % 1000);
+  set ele100 = eval(num(tag("ele")) % 100);
+  set ele50 = eval(num(tag("ele")) % 50);
+
+  color: #a86615;
+}
+
+line|z16-[ele] {
+  width: 1;
+}
+
+line|z14-[ele][ele50 = 0] {
+  width: 1.5;
+}
+
+line|z12-[ele][ele100 = 0] {
+  text: "ele";
+  font-size: 15;
+  text-color: #a86615;
+  width: 2;
+  text-halo-color: rgba(0, 0, 0, 0);
+  text-halo-radius: 5;
+  -x-kothic-padding: 50;
+}
+
+line|z10-[ele][ele1000 = 0] {
+  width: 3;
+}

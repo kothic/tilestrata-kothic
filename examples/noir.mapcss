@@ -1,0 +1,81 @@
+/*
+line[highway] {
+  width: 0;
+  casing-width: 0;
+}
+*/
+
+line[highway=trunk],
+line[highway=primary],
+line[highway=secondary],
+line[highway=tertiary],
+line[highway=trunk_link],
+line[highway=primary_link],
+line[highway=secondary_link],
+line[highway=tertiary_link] {
+  width: 3;
+  casing-width: 1;
+  color: gray;
+  casing-color: #000;
+}
+
+line[highway=residential],
+line[highway=unclassified],
+line[highway=living_street]{
+  width: 1;
+  color: gray;
+}
+
+area[natural=water],
+area[waterway] {
+  fill-color: #005;
+}
+
+line[waterway] {
+  color: #005;
+  width: 3;
+}
+
+line[waterway=stream] {
+  width: 1;
+}
+
+area[natural=wood],
+area[natural=scrub],
+area[leisure=park] {
+  fill-color: #070;
+  fill-opacity: 0.5;
+}
+
+area[landuse=residential] {
+  fill-color: #777;
+  fill-opacity: 0.5;
+}
+
+area[landuse=industrial] {
+  fill-color: #cac0c0;
+  fill-opacity: 0.5;
+}
+
+area[landuse=allotments],
+area[landuse=farmyard] {
+  fill-color: #c0cdc0;
+  fill-opacity: 0.5;
+}
+
+area[landuse=greenfield],
+area[landuse=brownfield] {
+  fill-color: #559955;
+  fill-opacity: 0.5;
+}
+
+line[barrier] {
+  color: black;
+  width: 1;
+}
+
+area[building] {
+  fill-color: #333;
+  z-index: 100;
+  fill-opacity: 0.5;
+}
