@@ -1,6 +1,6 @@
 {
   "name": "tilestrata-kothic",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Tilestrata plugin for rendering tiles using KothicJS",
   "main": "index.js",
   "scripts": {

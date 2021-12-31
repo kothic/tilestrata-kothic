@@ -24,7 +24,13 @@ function renderer(provider, options={}) {
 		cache: {
 			lockTimeoutMs: 60000,
 	    ttlMs: 60000
-		}
+		},
+    kothic: {
+      gallery: {
+        //TODO: Implement icons loading
+        loadImage: () => null
+      }
+    }
 	}, options);;
 
   const projection = new SphericalMercator({ size: options.tileSize });

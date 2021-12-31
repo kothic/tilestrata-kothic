@@ -28,11 +28,6 @@ strata.layer('osm', {minZoom: 12, maxZoom: 18})
         },
         buffer: 16
       },
-      kothic: {
-        gallery: {
-          loadImage: () => null
-        }
-      },
       mapcssFile: path.resolve(__dirname, "contours.mapcss")
     }));
 

@@ -14,11 +14,11 @@ const observer = new PerformanceObserver((list) => {
 });
 observer.observe({ entryTypes: ['function', 'measure'] });
 
-const SQL_TMPL = "SELECT elevation as id,  " +
-                  "hstore(ARRAY['ele', elevation::text]) AS tags, " +
+const SQL_TMPL = "SELECT ele as id,  " +
+                  "hstore(ARRAY['ele', ele::text]) AS tags, " +
                   "ST_AsGeoJSON(ST_SnapToGrid(ST_Intersection(wkb_geometry, {bbox}), 1)) AS geojson " +
                   "FROM public.contours " +
-                  "WHERE elevation % {interval} = 0 AND ST_Intersects(wkb_geometry, {bbox})";
+                  "WHERE ele % {interval} = 0 AND ST_Intersects(wkb_geometry, {bbox})";
 
 const psqlOptions = {
   generateSQL: function(bbox, zoom) {
@@ -53,12 +53,6 @@ const provider = new tilestrataKothic.PsqlProvider(psqlOptions);
 strata.layer('contours', {minZoom: 12, maxZoom: 18})
   .route('*.png')
     .use(tilestrataKothic.renderer(provider, {
-      kothic: {
-        gallery: {
-          //TODO: Implement icons loading
-          loadImage: () => null
-        }
-      },
       mapcssFile: path.resolve(__dirname, "contours.mapcss")
     }));
 
